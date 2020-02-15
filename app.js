@@ -5,6 +5,11 @@ const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 
+let html = "";
+let manager;
+let intern = [];
+let engineer = [];
+
 const questions = [
   {
     type: "input",
@@ -76,14 +81,30 @@ const engineerQuest = [
 
 function managerQuestion() {
   inquirer.prompt(questions).then(answers => {
-    console.log(answers);
+    // console.log(answers);
+    const manager = new Manager(
+      answers.managername,
+      answers.managerid,
+      answers.manageremail,
+      answers.manageroffice
+    );
+    // console.log(manager);
+
     employeeQuestion();
+    readMangFile(manager);
   });
 }
 
 function internQuestion() {
   inquirer.prompt(internQuest).then(answers => {
-    console.log(answers);
+    // console.log(answers);
+    intern = new Intern(
+      answers.internname,
+      answers.internid,
+      answers.internemail,
+      answers.school
+    );
+    console.log(intern);
     employeeQuestion();
   });
   //   console.log("choose Intern");
@@ -91,7 +112,14 @@ function internQuestion() {
 
 function engineerQuestion() {
   inquirer.prompt(engineerQuest).then(answers => {
-    console.log(answers);
+    // console.log(answers);
+    engineer = new Engineer(
+      answers.engineername,
+      answers.engineerid,
+      answers.engineeremail,
+      answers.github
+    );
+    console.log(engineer);
     employeeQuestion();
   });
   //   console.log("choose engineer");
@@ -100,6 +128,7 @@ function buildTeam() {
   //   inquirer.prompt(questions).then(answers => {
   //     console.log(answers);
   //   });
+  createHTML();
   console.log("building team");
 }
 function employeeQuestion() {
@@ -122,6 +151,28 @@ function employeeQuestion() {
           buildTeam();
       }
     });
+}
+
+function readMangFile(manager) {
+  fs.readFile("./templates/manager.html", "utf8", function(error, data) {
+    const newData = data
+      .replace("ManagerName", manager.managername)
+      .replace("MId", manager.managerid)
+      .replace("MEmail", manager.manageremail)
+      .replace("MOfficeNumber", manager.manageroffice);
+    html += newData;
+  });
+}
+
+function createHTML() {
+  fs.readFile("./templates/main.html", "utf8", function(error, data) {
+    const newData = data.replace("TEST", html);
+
+    fs.writeFile("./output/index.html", newData, "utf8", function(error) {
+      if (error) return console.log(error);
+    });
+    console.log("AJKSHFKSHJFKFHS");
+  });
 }
 
 function init() {
