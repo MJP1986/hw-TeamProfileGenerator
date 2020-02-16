@@ -90,8 +90,8 @@ function managerQuestion() {
     );
     // console.log(manager);
 
-    employeeQuestion();
     readMangFile(manager);
+    employeeQuestion();
   });
 }
 
@@ -105,6 +105,7 @@ function internQuestion() {
       answers.school
     );
     console.log(intern);
+    readInternFile(intern);
     employeeQuestion();
   });
   //   console.log("choose Intern");
@@ -120,6 +121,7 @@ function engineerQuestion() {
       answers.github
     );
     console.log(engineer);
+    readEngFile(engineer);
     employeeQuestion();
   });
   //   console.log("choose engineer");
@@ -153,14 +155,42 @@ function employeeQuestion() {
     });
 }
 
-function readMangFile(manager) {
+function readMangFile(htmlMana) {
+  console.log(htmlMana);
   fs.readFile("./templates/manager.html", "utf8", function(error, data) {
     const newData = data
-      .replace("ManagerName", manager.managername)
-      .replace("MId", manager.managerid)
-      .replace("MEmail", manager.manageremail)
-      .replace("MOfficeNumber", manager.manageroffice);
+      .replace("ManagerName", htmlMana.name)
+      .replace("MId", htmlMana.id)
+      .replace("MEmail", htmlMana.email)
+      .replace("MOfficeNumber", htmlMana.officeNumber);
     html += newData;
+    console.log(newData);
+  });
+}
+
+function readInternFile(htmlInt) {
+  console.log(htmlInt);
+  fs.readFile("./templates/intern.html", "utf8", function(error, data) {
+    const newData = data
+      .replace("InternName", htmlInt.name)
+      .replace("IId", htmlInt.id)
+      .replace("IEmail", htmlInt.email)
+      .replace("ISchool", htmlInt.school);
+    html += newData;
+    console.log(newData);
+  });
+}
+
+function readEngFile(htmlEng) {
+  console.log(htmlEng);
+  fs.readFile("./templates/engineer.html", "utf8", function(error, data) {
+    const newData = data
+      .replace("EngineerName", htmlEng.name)
+      .replace("EId", htmlEng.id)
+      .replace("EEmail", htmlEng.email)
+      .replace("Github", htmlEng.github);
+    html += newData;
+    console.log(newData);
   });
 }
 
@@ -171,7 +201,7 @@ function createHTML() {
     fs.writeFile("./output/index.html", newData, "utf8", function(error) {
       if (error) return console.log(error);
     });
-    console.log("AJKSHFKSHJFKFHS");
+    console.log("test");
   });
 }
 
