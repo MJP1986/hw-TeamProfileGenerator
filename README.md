@@ -21,4 +21,4 @@ As a manager, I want to generate a webpage that displays my teams basic info, so
 
 # Links
 
-[employee-summary](https://mjp1986.github.io/hw-TeamProfileGenerator)
+[employee-summary](https://github.com/MJP1986/hw-TeamProfileGenerator)
