@@ -8,8 +8,6 @@ As a manager, I want to generate a webpage that displays my teams basic info, so
 
 # Screen Shots
 
-## HTML Output
-
 ![Output](img/team.png)
 
 # Usage
